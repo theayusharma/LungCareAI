@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HomeIcon, ClipboardListIcon, InformationCircleIcon, LogoutIcon, UserIcon } from "@heroicons/react/outline";
 
 function FooterDisclaimer() {
   return (
-    <div>
-      <footer className="bg-gray-800 text-white text-center text-sm py-3">
-        <p>
-          Disclaimer: This application is not a substitute for professional medical advice.
-        </p>
-      </footer>
-    </div>
+    <footer className="bg-gray-800 text-white text-center text-sm py-3">
+      <p>Disclaimer: This application is not a substitute for professional medical advice.</p>
+    </footer>
   );
 }
 
-export default function BottomNavigationBar({ isAuthenticated, handleLogout }) {
+export default function BottomNavigationBar({ handleLogout }) {
   const navigate = useNavigate();
-  const location = useLocation(); // Get current route
+  const location = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsAuthenticated(loggedIn);
+  }, []);
 
   const navItems = [
     { name: "Home", path: "/", Icon: HomeIcon },
@@ -27,6 +29,13 @@ export default function BottomNavigationBar({ isAuthenticated, handleLogout }) {
       : [{ name: "Sign In", path: "/signin", Icon: UserIcon }]),
   ];
 
+  const handleLogoutClick = () => {
+    localStorage.setItem("isLoggedIn", "false");
+    setIsAuthenticated(false);
+    if (handleLogout) handleLogout();
+    navigate("/signin");
+  };
+
   return (
     <div>
       <div className="fixed bg-gradient-to-r from-blue-200 via-teal-400 to-green-500 bottom-0 left-0 right-0 shadow-md z-10 sm:hidden">
@@ -34,7 +43,9 @@ export default function BottomNavigationBar({ isAuthenticated, handleLogout }) {
           {navItems.map((item) => (
             <button
               key={item.path}
-              onClick={() => (item.action ? item.action() : navigate(item.path))}
+              onClick={() =>
+                item.action ? handleLogoutClick() : navigate(item.path)
+              }
               className={`flex flex-col items-center ${
                 location.pathname === item.path ? "text-black" : "text-white"
               } transition-colors duration-300`}

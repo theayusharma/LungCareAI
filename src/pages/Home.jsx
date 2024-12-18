@@ -1,10 +1,31 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { checkTokenValidity } from "../utils/auth";
 
 function Home() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+
+    if (token && checkTokenValidity(token)) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+
+  const handleImageUploadClick = () => {
+    if (!isAuthenticated) {
+      navigate('/signin');
+    } else {
+      navigate('/ImageUploadPage');
+    }
+  };
+
   return (
-    <div className=" min-h-screen bg-gray-100 p-6 flex flex-col gap-8">
+    <div className="min-h-screen bg-gray-100 p-6 flex flex-col gap-8">
       <div className="text-center animate-fade-in-down">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900">Welcome to LungCare.AI</h1>
         <p className="mt-4 text-base sm:text-lg text-gray-600">A project based on AI</p>
@@ -33,9 +54,9 @@ function Home() {
           Upload your histopathological images of lung and colon here for the diagnosis.
         </p>
         <button
-          onClick={() => navigate('/ImageUploadPage')}
+          onClick={handleImageUploadClick}
           type="button"
-          className="mt-6 py-2 sm:py-3 px-4 sm:px-6text-sm sm:text-lg bg-transform rounded-full border-0 text-md font-semibold shadow-md bg-blue-50 text-green-700 hover:bg-green-100 transform hover:scale-105 transition-transform duration-300"
+          className="mt-6 py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-lg bg-transform rounded-full border-0 text-md font-semibold shadow-md bg-blue-50 text-green-700 hover:bg-green-100 transform hover:scale-105 transition-transform duration-300"
         >
           Upload Your Image
         </button>
