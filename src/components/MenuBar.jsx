@@ -49,7 +49,8 @@ export default function MenuBar() {
               <img
   onClick={() => navigate("/")}
   className="h-11 w-auto cursor-pointer"
-  src={process.env.PUBLIC_URL + "/fullLogo.png"}
+  // src={process.env.PUBLIC_URL + "/fullLogo.png"}
+  src="/fullLogo.png"
   alt="Logo"
 />
 
