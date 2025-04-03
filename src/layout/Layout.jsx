@@ -1,5 +1,5 @@
-import MenuBar from './MenuBar';
-import FooterDisclaimer from './FooterDisclaimer';
+import MenuBar from '../components/MenuBar';
+import FooterDisclaimer from '../components/FooterDisclaimer';
 
 const Layout = ({ children }) => {
   return (

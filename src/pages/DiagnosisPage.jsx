@@ -3,7 +3,7 @@ import { DataContext } from "../components/DataContext";
 import { useNavigate } from "react-router-dom";
 
 function DiagnosisPage() {
-  const { response } = useContext(DataContext);
+  const { response, setResponse } = useContext(DataContext);
   const navigate = useNavigate();
   const [isReportCreating, setIsReportCreating] = useState(false);
 
@@ -53,13 +53,30 @@ function DiagnosisPage() {
           </table>
 
           {/* Create Report Button */}
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-center flex flex-row justify-center gap-7">
             <button
+              onClick={() => {
+              const token = localStorage.getItem("jwtToken");
+              if (token) {
+				setResponse(null)
+                navigate("/ImageUploadPage");
+              } else {
+                navigate("/signin");
+              }
+							}
+							}
+            
+              className="py-2 px-4 rounded-full border-0 text-md font-semibold hover:scale-105 transition-transform duration-300 bg-blue-50 text-green-700 hover:bg-green-100"
+            >
+              Back to ImageUploadPage
+            </button>
+			<button
               onClick={handleCreateReport}
               className="py-2 px-4 rounded-full border-0 text-md font-semibold hover:scale-105 transition-transform duration-300 bg-blue-50 text-green-700 hover:bg-green-100"
             >
               Create Report
             </button>
+
           </div>
         </div>
       ) : (
@@ -67,7 +84,8 @@ function DiagnosisPage() {
           <p className="text-center text-xl text-gray-600">
             No report data available. Please upload an image on the Image Upload page.
           </p>
-          <button
+						<div className="flex justify-center flex-col sm:flex-row gap-4 sm:gap-0">
+							 <button
             onClick={() => {
               const token = localStorage.getItem("jwtToken");
               if (token) {
@@ -80,7 +98,23 @@ function DiagnosisPage() {
             className="mr-4 py-2 px-4 rounded-full border-0 text-md font-semibold hover:scale-105 transition-transform duration-300 bg-blue-50 text-green-700 hover:bg-green-100">
             <p>Upload Your Image</p>
           </button>
-        </div>
+<button
+            onClick={() => {
+              const token = localStorage.getItem("jwtToken");
+              if (token) {
+                navigate("/search_patient");
+              } else {
+                navigate("/signin");
+              }
+            }}
+            type="button"
+            className="mr-4 py-2 px-4 rounded-full border-0 text-md font-semibold hover:scale-105 transition-transform duration-300 bg-blue-50 text-green-700 hover:bg-green-100">
+            <p>Search Patient</p>
+          </button>
+
+						</div>
+                 </div>
+
       )}
     </div>
   );

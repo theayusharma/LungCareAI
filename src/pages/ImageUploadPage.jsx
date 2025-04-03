@@ -9,12 +9,24 @@ function ImageUploadPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [error, setError] = useState(null);
   const { response, setResponse } = useContext(DataContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (response) {
-      navigate("/DiagnosisPage");
+      if (response[0].error) {
+				
+        alert("Upload a correct image.");
+        setImagePreview(null);
+        setFile(null);
+        setResponse(null);
+      } 
+      else {
+
+      alert("Image uploaded and classified successfully!");
+        navigate("/DiagnosisPage");
+      }
     }
   }, [response, navigate]);
 
@@ -44,6 +56,12 @@ function ImageUploadPage() {
     setImagePreview(URL.createObjectURL(selectedFile));
   };
 
+  const resetForm = () => {
+    setFile(null);
+    setImagePreview(null);
+    setError(null);
+  };
+
   const handleSubmit = async () => {
     if (!file) {
       alert("Please select or drop an image.");
@@ -51,6 +69,7 @@ function ImageUploadPage() {
     }
 
     setSubmitLoading(true);
+    setError(null);
 
     const formData = new FormData();
     formData.append("image", file);
@@ -67,7 +86,6 @@ function ImageUploadPage() {
 
       const result = await response.json();
       setResponse(result.data);
-      alert("Image uploaded and classified successfully!");
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred while uploading the image.");
@@ -77,17 +95,44 @@ function ImageUploadPage() {
   };
 
   return (
-    <div className="pt-16">
+    <div className="pt-16 flex flex-col justify-center">
+<div className = "flex justify-center py-2">
+<button
+            onClick={() => {
+              const token = localStorage.getItem("jwtToken");
+              if (token) {
+                navigate("/search_patient");
+              } else {
+                navigate("/signin");
+              }
+            }}
+            type="button"
+            className=" py-2 px-4 rounded-full border-0 text-md font-semibold hover:scale-105 transition-transform duration-300 bg-blue-50 text-green-700 hover:bg-green-100">
+            <p>Search Patient</p>
+          </button>
+			</div>
       <div className="text-center"><b className="text-lg font-bold text-center">Note:</b><p className="text-sm">Only Histopathological scan of Lung tissue can be used for diagnosis.</p></div>
       <h1 className="text-3xl font-bold text-center mt-10">Image Upload</h1>
       <div className="flex flex-col items-center mt-4 p-2">
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 max-w-md">
+            <p>{error}</p>
+            <button 
+              onClick={resetForm}
+              className="mt-2 text-blue-500 underline"
+            >
+              Reset and try again
+            </button>
+          </div>
+        )}
         <div
           onDragOver={handleDragOver}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className={`flex justify-center items-center h-60 w-full max-w-md border-4 ${isDragging ? "border-green-500 bg-green-200" : "border-dashed border-green-500 bg-gray-100"
-            } text-center rounded-lg mb-4 mx-4 sm:mx-0`}
+          className={`flex justify-center items-center h-60 w-full max-w-md border-4 ${
+            isDragging ? "border-green-500 bg-green-200" : "border-dashed border-green-500 bg-gray-100"
+          } text-center rounded-lg mb-4 mx-4 sm:mx-0`}
         >
           {imagePreview ? (
             <img
@@ -118,6 +163,15 @@ function ImageUploadPage() {
           >
             {submitLoading ? "Submitting..." : "Submit Image"}
           </button>
+          {file && (
+            <button
+              type="button"
+              onClick={resetForm}
+              className="p-2 py-2 px-4 rounded-full border-0 text-md font-semibold bg-red-50 text-red-700 hover:bg-red-100 hover:scale-105 transition-transform duration-300"
+            >
+              Reset
+            </button>
+          )}
         </div>
       </div>
     </div>
