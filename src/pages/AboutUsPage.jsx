@@ -16,7 +16,7 @@ function AboutUsPage() {
               </a>
             </div>
             <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">Anupam Jain</h3>
-            <p className="text-gray-600">Backend Developer & Documentation</p>
+            <p className="text-gray-600">ML & Backend Developer</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
@@ -29,7 +29,7 @@ function AboutUsPage() {
               </a>
             </div>
             <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">Atharv Mahajan</h3>
-            <p className="text-gray-600">Frontend Developer</p>
+            <p className="text-gray-600">ML & Frontend Developer</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
