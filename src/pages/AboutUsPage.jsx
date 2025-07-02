@@ -42,7 +42,7 @@ function AboutUsPage() {
               </a>
             </div>
             <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">Ashish Dubey</h3>
-            <p className="text-gray-600">Frontend Developer & Documentation </p>
+            <p className="text-gray-600">UI/UX & Documentation </p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
