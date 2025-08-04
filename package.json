@@ -1,5 +1,5 @@
 {
-  "name": "05-currencyconv",
+  "name": "LungCare brooo : )",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,12 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^1.0.6",
-    "chart.js": "^4.4.6",
-    "form-data": "^4.0.1",
     "react": "^18.3.1",
-    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1"
   },
