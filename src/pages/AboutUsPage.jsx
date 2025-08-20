@@ -24,7 +24,7 @@ function AboutUsPage() {
               <a href="http://github.com/atharvmahajan32" target="_blank" rel="noopener noreferrer">
                 <img className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg shadow-md" src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" />
               </a>
-              <a href="https://www.linkedin.com/in/atharvmahajan63/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/atharvmahajan63" target="_blank" rel="noopener noreferrer">
                 <img className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg shadow-md" src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" />
               </a>
             </div>
