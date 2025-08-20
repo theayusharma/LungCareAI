@@ -22,7 +22,7 @@
 - **MongoDB**: Database to store user uploads and results.  
 
 ### Machine Learning  
-- **PyTorch**: Model training and inference.  
+- **Tensorflow**: Model training and inference.  
 - **Google ViT (Vision Transformer)**: Pre-trained model for accurate image classification.  
 
 ## How It Works  
